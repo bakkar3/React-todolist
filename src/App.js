@@ -3,6 +3,7 @@ import List from "./List";
 import Alert from "./Alert";
 import './App.css';
 
+// LocalStorage
 const getLocalStorage = () => {
   let list = localStorage.getItem("list");
   if (list) {
@@ -11,12 +12,15 @@ const getLocalStorage = () => {
     return [];
   }
 };
+
 function App() {
   const [name, setName] = useState("");
   const [list, setList] = useState(getLocalStorage());
   const [isEditing, setIsEditing] = useState(false);
   const [editID, setEditID] = useState(null);
   const [alert, setAlert] = useState({ show: false, msg: "", type: "" });
+
+  // Function -1-handleSubmit
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!name) {
@@ -42,38 +46,49 @@ function App() {
       setName("");
     }
   };
-
+  
+  // Function -2-showAlert
   const showAlert = (show = false, type = "", msg = "") => {
     setAlert({ show, type, msg });
   };
+
+  
+  // Function -3-clearList
   const clearList = () => {
     showAlert(true, "danger", "empty list");
     setList([]);
   };
+
+// Function -4-removeItem
   const removeItem = (id) => {
     showAlert(true, "danger", "item removed");
     setList(list.filter((item) => item.id !== id));
   };
+
+  // Function -5-editItem
   const editItem = (id) => {
-    const specificItem = list.find((item) => item.id === id);
+    const spezifischItem = list.find((item) => item.id === id);
     setIsEditing(true);
     setEditID(id);
-    setName(specificItem.title);
+    setName(spezifischItem.title);
   };
+
   useEffect(() => {
     localStorage.setItem("list", JSON.stringify(list));
-  }, [list]);
+  }, [list])
   return (
     <section className="section-center">
-      <form className="grocery-form" onSubmit={handleSubmit}>
+      <form className="form" onSubmit={handleSubmit}>
+
+        {/* Alert Component */}
         {alert.show && <Alert {...alert} removeAlert={showAlert} list={list} />}
 
-        <h3>grocery bud</h3>
+        <h3>todo list</h3>
         <div className="form-control">
           <input
             type="text"
-            className="grocery"
-            placeholder="e.g. eggs"
+            className="input"
+            placeholder="Add New Task"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
@@ -82,9 +97,14 @@ function App() {
           </button>
         </div>
       </form>
+
+       {/* List Component  */}
       {list.length > 0 && (
-        <div className="grocery-container">
+        <div className="container">
           <List items={list} removeItem={removeItem} editItem={editItem} />
+          
+
+          {/* clear-btn */}
           <button className="clear-btn" onClick={clearList}>
             clear items
           </button>

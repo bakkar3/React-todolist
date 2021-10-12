@@ -159,11 +159,7 @@ main {
   display: grid;
   place-items: center;
 }
-/*
-=============== 
-Grocery List
-===============
-*/
+
 .section-center {
   background: var(--clr-white);
   border-radius: var(--radius);
@@ -185,15 +181,9 @@ Grocery List
   letter-spacing: var(--spacing);
   text-transform: capitalize;
 }
-.alert-danger {
-  color: #721c24;
-  background: #f8d7da;
-}
-.alert-success {
-  color: #155724;
-  background: #d4edda;
-}
-.grocery-form h3 {
+
+
+.form h3 {
   color: var(--clr-primary-1);
   margin-bottom: 1.5rem;
   text-align: center;
@@ -202,7 +192,7 @@ Grocery List
   display: flex;
   justify-content: center;
 }
-.grocery {
+.input {
   padding: 0.25rem;
   padding-left: 1rem;
   background: var(--clr-grey-10);
@@ -213,10 +203,7 @@ Grocery List
   flex: 1 0 auto;
   color: var(--clr-grey-5);
 }
-.grocery::placeholder {
-  font-family: var(--ff-secondary);
-  color: var(--clr-grey-5);
-}
+
 .submit-btn {
   background: var(--clr-primary-8);
   border-color: transparent;
@@ -238,11 +225,11 @@ Grocery List
   color: var(--clr-white);
 }
 
-.grocery-container {
+.container {
   margin-top: 2rem;
 }
 
-.grocery-item {
+.item {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -252,11 +239,11 @@ Grocery List
   border-radius: var(--radius);
   text-transform: capitalize;
 }
-.grocery-item:hover {
+.item:hover {
   color: var(--clr-grey-5);
   background: var(--clr-grey-10);
 }
-.grocery-item:hover .title {
+.item:hover .title {
   color: var(--clr-grey-5);
 }
 .title {
@@ -275,7 +262,7 @@ Grocery List
   transition: var(--transition);
 }
 .edit-btn {
-  color: var(--clr-green-light);
+  color: var(--clr-green);
 }
 .edit-btn:hover {
   color: var(--clr-green-dark);
@@ -293,7 +280,7 @@ Grocery List
   display: grid;
   align-items: center;
   background: transparent;
-  border-color: transparent;
+  border-color: rgb(212, 162, 165);
   color: var(--clr-red-light);
   margin: 0 auto;
   font-size: 0.85rem;
@@ -301,7 +288,9 @@ Grocery List
   cursor: pointer;
   transition: var(--transition);
   margin-top: 1.25rem;
+ border-radius: var(--radius)
 }
 .clear-btn:hover {
   color: var(--clr-red-dark);
+  background-color: rgb(229, 153, 153);
 }
