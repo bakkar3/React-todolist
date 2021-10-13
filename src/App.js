@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import List from "./List";
 import Alert from "./Alert";
-import './App.css';
+import "./App.css";
 
 // LocalStorage
 const getLocalStorage = () => {
@@ -19,6 +19,7 @@ function App() {
   const [isEditing, setIsEditing] = useState(false);
   const [editID, setEditID] = useState(null);
   const [alert, setAlert] = useState({ show: false, msg: "", type: "" });
+  const inputRef = useRef(null);
 
   // Function -1-handleSubmit
   const handleSubmit = (e) => {
@@ -44,25 +45,27 @@ function App() {
 
       setList([...list, newItem]);
       setName("");
+      inputRef.current.focus();
     }
   };
-  
+
   // Function -2-showAlert
   const showAlert = (show = false, type = "", msg = "") => {
     setAlert({ show, type, msg });
   };
 
-  
   // Function -3-clearList
   const clearList = () => {
     showAlert(true, "danger", "empty list");
     setList([]);
+    inputRef.current.focus();
   };
 
-// Function -4-removeItem
+  // Function -4-removeItem
   const removeItem = (id) => {
     showAlert(true, "danger", "item removed");
     setList(list.filter((item) => item.id !== id));
+    inputRef.current.focus();
   };
 
   // Function -5-editItem
@@ -71,15 +74,15 @@ function App() {
     setIsEditing(true);
     setEditID(id);
     setName(spezifischItem.title);
+    inputRef.current.focus();
   };
 
   useEffect(() => {
     localStorage.setItem("list", JSON.stringify(list));
-  }, [list])
+  }, [list]);
   return (
     <section className="section-center">
       <form className="form" onSubmit={handleSubmit}>
-
         {/* Alert Component */}
         {alert.show && <Alert {...alert} removeAlert={showAlert} list={list} />}
 
@@ -88,6 +91,7 @@ function App() {
           <input
             type="text"
             autoFocus
+            ref={inputRef}
             className="input"
             placeholder="Add New Task"
             value={name}
@@ -99,11 +103,10 @@ function App() {
         </div>
       </form>
 
-       {/* List Component  */}
+      {/* List Component  */}
       {list.length > 0 && (
         <div className="container">
           <List items={list} removeItem={removeItem} editItem={editItem} />
-          
 
           {/* clear-btn */}
           <button className="clear-btn" onClick={clearList}>
