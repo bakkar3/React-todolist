@@ -87,6 +87,7 @@ function App() {
         <div className="form-control">
           <input
             type="text"
+            autoFocus
             className="input"
             placeholder="Add New Task"
             value={name}
